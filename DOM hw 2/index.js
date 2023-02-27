@@ -4,6 +4,7 @@ let container = document.querySelector('.container');
 
 window.addEventListener('load', () => {
     let page = document.body;
+    btn_turn.innerHTML = localStorage.getItem('btn_text');
     let color = localStorage.getItem('color');
     let background = localStorage.getItem('background')
     page.style.background = background;
@@ -26,6 +27,7 @@ function displayBackground() {
         localStorage.setItem('lastDate', text);
         localStorage.setItem('background', '#000000');
         localStorage.setItem('color', color);
+        localStorage.setItem('btn_text', btn_turn.textContent);
     } else {
         page.style.background = '#ffffff';
         btn_turn.innerHTML = 'Turn off';
@@ -36,6 +38,7 @@ function displayBackground() {
         localStorage.setItem('lastDate', text);
         localStorage.setItem('background', '#ffffff');
         localStorage.setItem('color', color);
+        localStorage.setItem('btn_text', btn_turn.textContent);
     }
 }
 
