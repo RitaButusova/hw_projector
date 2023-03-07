@@ -1,0 +1,161 @@
+*,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    background: #066acd;
+    font-family: 'Poppins',sans-serif;
+    font-size: 15px;
+}
+
+.container {
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #ffffff;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+}
+
+.create-task-block {
+    padding: 20px 30px;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.create-task-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.input-field {
+    width: 100%;
+}
+
+.task-input {
+    width: 100%;
+    height: 25px;
+    padding: 25px;
+    color: #111111;
+    font-weight: 500;
+    border-radius: 5px;
+    border: 2px solid #d1d3d4;
+}
+
+.task-title {
+    margin-bottom: 10%;
+    align-self: center;
+}
+
+.task-input:focus{
+    outline: none;
+    border-color: #0d75ec;
+}
+
+.btn{
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #0d75ec;
+    border: none;
+    color: #ffffff;
+    cursor: pointer;
+    outline: none;
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 5%;
+}
+
+.filter-task-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 20px 30px;
+}
+
+.collection{
+    border-radius: 10px;
+    width: 100%;
+    background-color: #ffffff;
+    margin-top: 10%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.collection li.task{
+    font-family: 'Poppins',sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    border-radius: 5px;
+    align-items: center;
+    border: 1px solid #939697;
+    cursor: pointer;
+    background-color: #c5e1e6;
+    height: 50px;
+    margin-bottom: 8px;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.clear-tasks {
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #6583e5;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    height: 100%;
+    width: 50%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 3%;
+}
+
+.remove-task {
+    width: 30px;
+    height: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #6583e5;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+}
+
+.fa-edit {
+    width: 30px;
+    height: 30px;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #6583e5;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    margin-right: 10px;
+}
+
+.btn_container {
+    display: flex;
+    flex-direction: row;
+}

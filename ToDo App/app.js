@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', showPosts);
 form.addEventListener('submit', addTask);
 // запускаємо функцію deleteTask коли клік попадає на список <ul>
 taskList.addEventListener('click', deleteTask);
+taskList.addEventListener('click', redactTask);
 // запускаємо функцію після кліку на кнопку "Видалити всі елементи"
 clearBtn.addEventListener('click', removeAllTasks);
 // запускаємо функцію filterTasks після того як ввідпускаємо клавішу (тоді, коли фокус в інпуті "Пошук завдань")
@@ -44,6 +45,15 @@ function showPosts() {
         li.innerHTML = task.value;
         li.dataset.id = task.idVal;
 
+        const btnContainer = document.createElement('div');
+        btnContainer.classList.add('btn_container');
+       
+    
+        const buttonRedact = document.createElement('i');
+        buttonRedact.classList.add('fa');
+        buttonRedact.classList.add('fa-edit');
+        btnContainer.append(buttonRedact);
+    
         // сторюємо кнопку для видалення
         const button = document.createElement('button');
         // додаємо їй клас
@@ -51,8 +61,10 @@ function showPosts() {
         // всередину кнопку додаємо значення х
         button.innerHTML = 'x';
         // записуємо кнопку після всього, що є всередині елементу списку
-        li.append(button);
-        
+        btnContainer.append(button);
+    
+        li.append(btnContainer);
+    
         // записуємо цей елемент в кінець списку
         taskList.append(li);
     })
@@ -79,19 +91,30 @@ function addTask(event) {
     li.dataset.id = Date.now();
     const idVal = li.dataset.id;
 
+    const btnContainer = document.createElement('div');
+    btnContainer.classList.add('btn_container');
+   
+
+    const buttonRedact = document.createElement('i');
+    buttonRedact.classList.add('fa');
+    buttonRedact.classList.add('fa-edit');
+    btnContainer.append(buttonRedact);
+
     // сторюємо кнопку для видалення
     const button = document.createElement('button');
     // додаємо їй клас
     button.classList.add('remove-task');
-
-
     // всередину кнопку додаємо значення х
     button.innerHTML = 'x';
     // записуємо кнопку після всього, що є всередині елементу списку
-    li.append(button);
-    
+    btnContainer.append(button);
+
+    li.append(btnContainer);
+
     // записуємо цей елемент в кінець списку
     taskList.append(li);
+
+    
 
     // викликаємо функцію яка буде додавати завдання до Local Storage
     storeTasksInLocalStorage({idVal, value});
@@ -126,7 +149,8 @@ function deleteTask(event) {
         // пересвідчуємось чи юзер справді хоче видалити цей елемент
         if(confirm('Ви впевнені що хочете видалити цей елемент?')) {
             // видаляємо цей елемент списку, в якому знаходиться хрестик
-            event.target.parentElement.remove();
+            const eventEl = event.target.parentElement;
+            eventEl.parentElement.remove();
             // викликаємо функцію яка буде видаляти завдання з Local Storage
             removeTaskFromLocalStorage(event.target.parentElement);
         }
@@ -186,10 +210,43 @@ function filterTasks(event) {
         // перевіряємо чи текст завдання має в собі значення інпута "Пошук завдань"
         if (itemValue.includes(searchQuery)) {
             // якщо має, то display = list-item
-            item.style.display = 'list-item';
+            item.style.display = 'flex';
+
         } else {
             // якщо ні - ховаємо це елемент списку
             item.style.display = 'none';
         }
     })
+}
+
+// видалити якусь конкретну таску
+function redactTask(event) {
+    // якщо ми клікнули по хрестику  - тоді
+    if (event.target.classList.contains('fa-edit')) {
+        // пересвідчуємось чи юзер справді хоче видалити цей елемент
+        let redactValue = prompt("");
+        const redactEl = event.target.parentElement;
+        //redactEl.innerText = redactValue;
+        redactEl.parentElement.firstChild.replaceWith(redactValue);
+        const idVal = redactEl.dataset.id;
+        console.log(idVal)
+    
+        // оголошуємо змінну яка буде використовуватись для списку завдань
+        let tasks;
+
+        // перевіряємо чи є у localStorage вже якісь завдання
+        if (localStorage.getItem('tasks') !== null) {
+            // якщо вони там є - витягуємо їх і присвоюємо змінній
+            tasks = JSON.parse(localStorage.getItem('tasks'));
+        } 
+
+        for (let key of tasks) {
+            if (key.idVal === idVal) {
+                key.value = redactValue;
+            }
+        }
+
+        // зберігаємо список завданнь в Local Storage
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        }
 }
